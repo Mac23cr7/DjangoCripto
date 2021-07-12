@@ -1,0 +1,14 @@
+{% extends 'index.html' %}
+
+{% block title %}
+    Confirmación de Validación de Operación
+{% endblock title %}
+
+{% block body %}
+    <h2>¿Desea validar el registro {{ object.id_beneficiario.nombre }}?</h2>
+        <form method="POST">
+            {% csrf_token %}
+            <button type="submit">Confirmar</button>
+            <a href="{% url 'cambios:listar_operacion_no_validada' %}">Cancelar</a>
+        </form>
+{% endblock body %}

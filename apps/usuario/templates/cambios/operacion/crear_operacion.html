@@ -1,0 +1,132 @@
+<div class="modal-dialog modal-lg" role="document">
+    <div class="modal-content">
+        <div class="modal-header">
+            <h2 class="modal-title">Creación de Operación </h2>
+            <button class="close" type="button" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+            </button>
+        </div>
+        <form id="form_creacion" action="{% url 'cambios:crear_operacion' %}" method="POST" enctype="multipart/form-data">
+            {% csrf_token %}
+            <div class="card-body mx-auto">
+            <div class="modal-body">
+                <div id="errores">
+
+                </div>
+                <!-- <div class="form-group">
+                {{ form.as_p }}
+
+
+
+                </div> -->
+                <div class="form-group">
+                  <input type="text" name="beneficiario-nombre_be" required class="form-control" placeholder="Nombre Beneficiario" autofocus>
+                </div>
+                <div id="beneficiario-nombre_be" class="">
+
+                </div>
+                <div class="form-group">
+                  <input type="text" name="beneficiario-cedula" required class="form-control" placeholder="Cedula Beneficiario" autofocus>
+                </div>
+                <div id="beneficiario-cedula" class="">
+
+                </div>
+                <div class="form-group">
+                  <input type="text" name="beneficiario-tipo_documento" required class="form-control" placeholder="Tipo Documento" autofocus>
+                </div>
+                <div id="beneficiario-tipo_documento" class="">
+
+                </div>
+                <div class="form-group">
+                  <label >Nombre Banco:</label>
+                  <select name="beneficiario-nombre_banco" class="form-control" id="nomBanco" onchange="clickTasa(); clickShow();">
+                      <option disabled="disabled" selected="selected">SELECCIONE BANCO</option>
+                      <option value="BANESCO">BANESCO</option>
+                      <option value="MERCANTIL">MERCANTIL</option>
+                      <option value="PROVINCIAL">PROVINCIAL</option>
+                      <!-- <option value="VENEZUELA">VENEZUELA</option> -->
+                  </select>
+                </div>
+                <div id="beneficiario-nombre_banco" class="">
+
+                </div>
+                <div class="form-group">
+                  <input type="text" name="beneficiario-numero_cuenta" required class="form-control" placeholder="Numero Cuenta" autofocus>
+                </div>
+                <div id="beneficiario-numero_cuenta" class="">
+
+                </div>
+                <div class="form-group">
+                    <p>Tipo de Cuenta:</p>
+                    <input type="radio" id="male" name="beneficiario-tipo_cuenta" value="AHORRO">
+                    <label >AHORRO</label><br>
+                    <input type="radio" id="female" name="beneficiario-tipo_cuenta" value="CORRIENTE">
+                    <label >CORRIENTE</label><br>
+                </div>
+                <div id="beneficiario-tipo_cuenta" class="">
+
+                </div>
+                <div class="form-group">
+                  <input type="text" name="operacion-monto_dolares" onkeyup="clic();" id="montoDolares" required class="form-control" placeholder="Monto en Dolares" autofocus>
+                </div>
+                <div id="operacion-monto_dolares" class="">
+
+                </div>
+                <div class="form-group">
+                  <input type="text" name="operacion-tasa_actual" hidden="True" id="montoTasa" required class="form-control" placeholder="Tasa Actual" autofocus>
+                </div>
+                <div id="operacion-tasa_actual" class="">
+
+                </div>
+                <div class="form-group">
+                  <input type="text" name="operacion-monto_bolivares" id="montoBolivares" required class="form-control" placeholder="Monto en Bolivares" >
+                </div>
+                <div id="operacion-monto_bolivares" class="">
+
+                </div>
+                <div class="form-group">
+                  <input type="file" name="operacion-cargar_documento" required class="form-control" placeholder="Adjuntar Archivo" autofocus>
+                </div>
+                <div id="operacion-cargar_documento" class="">
+
+                </div>
+                <div class="form-group">
+                  <input type="text" name="depositante-nombre_de" required class="form-control" placeholder="Nombre Depositante" autofocus>
+                </div>
+                <div id="depositante-nombre_de" class="">
+
+                </div>
+                <div class="form-group">
+                  <input type="text" name="depositante-numer_tlfn" required class="form-control" placeholder="Telefono Depositante" autofocus>
+                </div>
+                <div id="depositante-numer_tlfn" class="">
+
+                </div>
+                <div class="form-group">
+                  <input type="email" name="depositante-correo" required class="form-control" placeholder="Correo Depositante" autofocus>
+                </div>
+                <div id="depositante-correo" class="">
+
+                </div>
+
+
+                <div class="form-group">
+                   <input type="text" id="tasaBanesco"  style="display:none" name="" value="{{cambios.tasa_banesco}}">
+               </div>
+                <div class="form-group">
+                    <input type="text" id="tasaOtros" hidden="True" name="" value="{{cambios.tasa_otros}}">
+                </div>
+
+
+                <!-- value="{{ cambios.tasa_banesco|floatformat:"0" }}" -->
+
+
+            </div>
+            </div>
+            <div class="modal-footer">
+                <button class="btn btn-danger" type="button" onclick="cerrar_modal_creacion();">Cancelar</button>
+                <button id="boton_all" class="btn btn-primary" type="button" onclick="registrar();">Confirmar</button>
+            </div>
+        </form>
+    </div>
+</div>

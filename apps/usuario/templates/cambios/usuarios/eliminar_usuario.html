@@ -1,0 +1,21 @@
+<div class="modal-dialog modals-default nk-red">
+    <div class="modal-content">
+        <form action="{% url 'usuario:eliminar_usuario' pk=usuario.pk %}" method="POST">
+        <div class="modal-header">
+            Eliminación de {{ usuario }}
+            <button type="button" class="close" data-dismiss="modal">&times;</button>
+        </div>
+        <div class="modal-body text-center">
+
+            {% csrf_token %}
+            <h3><strong>¿Desea eliminar {{ usuario }} ?</strong></h3>
+
+
+        </div>
+        <div class="modal-footer">
+            <button type="submit" class="btn btn-danger" data-align="center"><strong>CONFIRMAR ELIMINACIÓN</strong></button>
+            <button type="button" class="btn btn-primary" onclick="cerrar_modal_eliminacion();"><strong>CANCELAR</strong></button>
+        </div>
+        </form>
+    </div>
+</div>

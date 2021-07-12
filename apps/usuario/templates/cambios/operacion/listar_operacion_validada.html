@@ -1,0 +1,62 @@
+{% extends 'index.html'%}
+{% load staticfiles %}
+{% block title %}
+    Listado de Operaciones Validadas
+{% endblock title %}
+
+{% block crear_beneficiario%}
+<a href="#">Crear Beneficiario </a>
+{% endblock crear_beneficiario%}
+
+{% block body %}
+
+
+        <table id = "tabla_operacion_val" class="table table-bordered table-sm" class="table-stats order-table ov-h">
+            <thead>
+                <tr>
+                    <th>Id</th>
+                    <th>Nombre</th>
+                    <th>Cedula</th>
+                    <th>Tipo Documento</th>
+                    <th>Nombre Banco</th>
+                    <th>Numero Cuenta</th>
+                    <th>Tipo Cuenta</th>
+                    <th>Monto en $</th>
+                    <th>Tasa Actual</th>
+                    <th>Monto en BsF</th>
+                    <th>Cargar Documento</th>
+                    <th>Nombre Depositante</th>
+                    <th>Telefono Depositante</th>
+                    <th>Correo Depositante</th>
+                    <th>Acción</th>
+                </tr>
+            </thead>
+            <tbody>
+
+            </tbody>
+        </table>
+
+
+        <div class="modal fade" id="creacion" role="dialog">
+
+        </div>
+
+        <div class="modal fade" id="eliminacion" role="dialog">
+
+        </div>
+
+{% endblock body %}
+
+
+{% block extrajs %}
+
+<script src="{% static 'js/lib/data-table/datatables.min.js' %}"></script>
+<script src="{% static 'js/lib/data-table/dataTables.bootstrap.min.js' %}"></script>
+<script src="{% static 'js/operacion/index.js' %}"></script>
+<script src="{% static 'js/main2.js' %}"></script>
+<script type="text/javascript">
+    window.onload = function(){
+
+    }
+</script>
+{% endblock extrajs %}

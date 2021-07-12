@@ -1,0 +1,80 @@
+{% extends 'index.html' %}
+{% load staticfiles %}
+{% block title %}
+    <h1>Listado de Usuario</h1>
+{% endblock title %}
+{% block extra_css %}
+    <link rel="stylesheet" href="{% static 'css/lib/datatable/dataTables.bootstrap.min.css' %}">
+{% endblock extra_css %}
+
+
+{% block crear_usuario %}
+
+<div class="col-md-4">
+    <button type="button" class="btn btn-primary" onclick="abrir_modal_creacion('{% url 'usuario:crear_usuario' %}');"> REGISTRAR USUARIO</button>
+</div>
+
+
+{% endblock crear_usuario %}
+
+{% block body %}
+{% if object_list %}
+        <table  class="table table-bordered table-sm" class="table-stats order-table ov-h">
+            <thead>
+                <tr>
+                    <th>Id</th>
+                    <th>Username</th>
+                    <th>Nombres</th>
+                    <th>Apellidos</th>
+                    <th>Correo</th>
+                    <th>Usuario Administrador</th>
+                    <th>Acción</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for usuario in object_list %}
+                <tr>
+                    <td>{{ usuario.id }}</td>
+                    <td>{{ usuario.username }}</td>
+                    <td>{{ usuario.nombres }}</td>
+                    <td>{{ usuario.apellidos }}</td>
+                    <td>{{ usuario.email }}</td>
+                    <td>{{ usuario.is_active }}</td>
+                    <td>
+                        <button type="button" class="btn btn-success" onclick="abrir_modal_edicion('{% url 'usuario:actualizar_usuario' usuario.pk %}');">Editar</button>
+                        <button type="button" class="btn btn-danger" onclick="abrir_modal_eliminacion('{% url 'usuario:eliminar_usuario' usuario.pk %}');">Eliminar</button>
+                    </td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+
+        {% else %}
+            <h1>NO hay ususario registrados.</h1>
+        {% endif %}
+
+
+    <div class="modal fade" id="creacion" role="dialog">
+
+    </div>
+
+
+    <div class="modal fade" id="edicion" role="dialog">
+
+    </div>
+
+    <div class="modal fade" id="eliminacion" role="dialog">
+
+    </div>
+
+
+{% endblock body %}
+
+{% block extrajs %}
+
+<script src="{% static 'js/lib/data-table/datatables.min.js' %}"></script>
+<script src="{% static 'js/lib/data-table/dataTables.bootstrap.min.js' %}"></script>
+<script src="{% static 'js/beneficiario/index.js' %}"></script>
+<script src="{% static 'js/main2.js' %}"></script>
+
+{% endblock extrajs %}

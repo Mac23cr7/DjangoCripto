@@ -1,0 +1,14 @@
+{% extends 'index.html' %}
+
+{% block title %}
+    Confirmación de Eliminació de Beneficiario
+{% endblock title %}
+
+{% block body %}
+    <h2>¿Desea eliminar el registro {{ object }}?</h2>
+        <form method="POST">
+            {% csrf_token %}
+            <button type="submit">Confirmar</button>
+            <a href="{% url 'cambios:listar_beneficiario' %}">Cancelar</a>
+        </form>
+{% endblock body %}

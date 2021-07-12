@@ -1,0 +1,46 @@
+{% extends 'index.html'%}
+{% load staticfiles %}
+{% block title %}
+    Listado de Tasas
+{% endblock title %}
+
+{% block crear_beneficiario%}
+<a href="#">Crear Tasa</a>
+{% endblock crear_beneficiario%}
+
+{% block body %}
+
+
+    {% if tasas %}
+        <table>
+            <thead>
+                <tr>
+                    <th>Id</th>
+                    <th>Tasa Banesco</th>
+                    <th>Tasa Otros</th>
+                    <th>Acción</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for tasa in tasas %}
+                <tr>
+                    <td>{{ tasas.id }}</td>
+                    <td>{{ tasa.tasa_banesco }}</td>
+                    <td>{{ tasa.tasa_otros }}</td>
+
+                    <td>
+                        <a href="#">Editar</a>
+                        <a href="#">Eliminar</a>
+                    </td>
+                </tr>
+                <input type="text" name="" value="{{tasa.tasa_banesco}}">
+                {% endfor %}
+            </tbody>
+        </table>
+
+
+    {% else %}
+        <h1>NO hay tasas registradas.</h1>
+    {% endif %}
+
+{% endblock body %}

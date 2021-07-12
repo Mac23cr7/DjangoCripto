@@ -1,0 +1,434 @@
+{% load staticfiles %}
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+
+    <title>CRIPTOCURRENCIES</title>
+
+    <!-- Styles -->
+    <link href='https://fonts.googleapis.com/css?family=Montserrat:400,600,700' rel="stylesheet" type="text/css">
+    <link href='https://fonts.googleapis.com/css?family=Open+Sans:400,400i,700,700i' rel="stylesheet" type="text/css">
+    <link href="{% static 'vendor/mdi-font/css/material-design-iconic-font.min.css' %}" rel="stylesheet" media="all">
+    <link href="{% static 'vendor/font-awesome-4.7/css/font-awesome.min.css' %}" rel="stylesheet" media="all">
+    <link href="{% static 'css/bootstrap.css' %}" rel="stylesheet" type="text/css">
+    <link href="{% static 'css/fontawesome-all.css' %}" rel="stylesheet" type="text/css">
+    <link href="{% static 'css/swiper.css' %}" rel="stylesheet" type="text/css">
+	<link href="{% static 'css/magnific-popup.css' %}" rel="stylesheet" type="text/css">
+    <link rel="stylesheet" href="https://bootswatch.com/4/yeti/bootstrap.min.css">
+    <!-- FONT AWESOEM -->
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.6.3/css/all.css" integrity="sha384-UHRtZLI+pbxtHCWp1t77Bi1L4ZtiqrqD80Kn4Z8NTSRyMA2Fd33n5dQ8lWUE00s/" crossorigin="anonymous">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+
+	<!-- <link href="{% static 'css/styles.css' %}" rel="stylesheet" type="text/css"> -->
+
+
+    <!-- Navbar -->
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+  <a class="navbar-brand" href="index.html">CRIPTOS</a>
+  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+    <span class="navbar-toggler-icon"></span>
+  </button>
+
+  <div class="collapse navbar-collapse" id="navbarSupportedContent">
+    <ul class="navbar-nav ml-auto">
+      <li class="nav-item">
+        <a class="nav-link" href="{% url 'example:crear_operacion' %}">Operaciones <span class="sr-only">(current)</span></a>
+      </li>
+      {% if request.user.is_superuser %}
+      <li class="nav-item">
+        <a class="nav-link" href="{% url 'usuario:listar_usuario' %}">Usuarios <span class="sr-only">(current)</span></a>
+      </li>
+      {% endif %}
+      <li class="nav-item">
+          <a class="nav-link page-scroll" href="{% url 'logout' %}">{{ user }} Logout</a>
+      </li>
+    </ul>
+  </div>
+</nav>
+
+{% block title %}
+
+{% endblock title %}
+
+
+    {% block extra_css %}
+
+    {% endblock extra_css %}
+
+
+    {% block crear_usuario  %}
+
+    {% endblock crear_usuario  %}
+{% block body %}
+
+<!-- <div class="container pt-4 py-5"> -->
+        <div class="card">
+			<div class="card card-body">
+				<div class="card-body mx-auto">
+					<h3 class="text-center">Registrar Operación</h3><BR>
+                        <form class="row" action="{% url 'example:crear_operacion' %}" method="POST" enctype="multipart/form-data">
+                        {% csrf_token %}
+			              <!-- {{ form.as_p }} -->
+                          <div class="form-group col-md-3">
+  							<input type="text" id="solicitante-nombre_sol" name="solicitante-nombre_sol" class="form-control" placeholder="Nombre Solicitante" autofocus>
+  						  </div>
+  						  <div class="form-group col-md-3">
+  							<input type="texto" id="solicitante-tipo_documento_sol" name="solicitante-tipo_documento_sol" class="form-control" placeholder="Tipo Documento">
+                          </div>
+  						  <div class="form-group col-md-3">
+  							<input type="texto" id="solicitante-cedula_sol" name="solicitante-cedula_sol" class="form-control" placeholder="Numeró Documento">
+  						  </div>
+  						  <div class="form-group col-md-3">
+  							<input type="mail" id="solicitante-correo_sol"  name="solicitante-correo_sol" class="form-control" placeholder="Correo Electronico">
+  						  </div>
+                          <div class="form-group col-md-3">
+                              <select name="operacion-tipo_operacion" class="form-control" id="operacion-tipo_operacion" onchange="clickShow();">
+                                  <option disabled="disabled" selected="selected">SELECCIONE OPERACIÓN</option>
+                                  <option value="COMPRA">COMPRA</option>
+                                  <option value="VENTA">VENTA</option>
+                              </select>
+                         </div>
+                         <div class="form-group col-md-3" id="operacion-tipo_cripto" style="display:none">
+                             <select name="operacion-tipo_cripto" class="form-control" onchange="">
+                                 <option disabled="disabled" selected="selected">SELECCIONE CRIPTO</option>
+                                 <option value="BITCOIN">BITCOIN</option>
+                                 <option value="ETHEREUM">ETHEREUM</option>
+                                 <option value="DASH">DASH</option>
+                                 <option value="RIPLE">RIPLE</option>
+                                 <option value="BAT">BAT</option>
+                              </select>
+                        </div>
+
+                         <div class="form-group col-md-3" id="operacion-monto_principal" style="display:none">
+                           <input type="number"  name="operacion-monto_principal" class="form-control" placeholder="Monto Dolares">
+                         </div>
+                         <div class="form-group col-md-3" id="operacion-monto_cripto" style="display:none">
+                           <input type="number" name="operacion-monto_cripto" class="form-control" placeholder="Monto Cripto">
+                         </div>
+                         <div class="form-group col-md-3" id="operacion-monto_total" style="display:none">
+                           <input type="number"   name="operacion-monto_total" class="form-control" placeholder="Monto Total Cripto">
+                         </div>
+
+
+                         <div class="form-group col-md-3" id="operacion-num_referencia" style="display:none">
+                           <input type="texto" name="operacion-num_referencia" class="form-control" placeholder="Numeró Referencia">
+                         </div>
+                         <div class="form-group col-md-3" id="operacion-cargar_documento" style="display:none">
+                           <input type="file" class="btn-file"  name="operacion-cargar_documento" class="form-control" placeholder="Cargar Documento">
+                         </div>
+                         <div class="form-group col-md-3" style="display:none" id="beneficiario-tipo_datos">
+                             <select name="beneficiario-tipo_datos" class="form-control" id="beneficiario-tipo_datos2" onchange="clickDatos();">
+                                 <option disabled="disabled" selected="selected">SELECCIONE DATOS</option>
+                                 <option value="MISMOS DATOS">MISMOS DATOS</option>
+                                 <option value="OTROS DATOS">OTROS DATOS</option>
+
+                             </select>
+                         </div>
+
+                         <div class="form-group col-md-3" id="beneficiario-nombre_ben" style="display:none">
+                           <input type="texto"  name="beneficiario-nombre_ben" class="form-control" placeholder="Nombre Beneficiario">
+                         </div>
+                         <div class="form-group col-md-3" id="beneficiario-tipo_documento_ben" style="display:none">
+                           <input type="text" name="beneficiario-tipo_documento_ben" class="form-control" placeholder="Tipo Documento">
+                         </div>
+                         <div class="form-group col-md-3" id="beneficiario-cedula_ben" style="display:none">
+                           <input type="texto"  name="beneficiario-cedula_ben" class="form-control" placeholder="Numeró Documento">
+                         </div>
+                         <div class="form-group col-md-3"  id="beneficiario-correo_ben" style="display:none">
+                           <input type="text" name="beneficiario-correo_ben" class="form-control" placeholder="Correo Electronico">
+                         </div>
+                         <div class="form-group col-md-3" id="beneficiario-nombre_banco" style="display:none">
+                             <select name="beneficiario-nombre_banco" class="form-control" onchange="">
+                                 <option disabled="disabled" selected="selected">SELECCIONE BANCO</option>
+                                 <option value="PACIFICO">PACIFICO</option>
+                                 <option value="BOLIVARIANO">BOLIVARIANO</option>
+
+                             </select>
+                         </div>
+                         <div class="form-group col-md-3" id="beneficiario-tipo_cuenta" style="display:none">
+                             <input type="radio" name="beneficiario-tipo_cuenta" value="AHORRO">
+                             <label >AHORRO</label><br>
+                             <input type="radio" name="beneficiario-tipo_cuenta" value="CORRIENTE">
+                             <label >CORRIENTE</label><br>
+                         </div>
+                         <div class="form-group col-md-3" id="beneficiario-numero_cuenta" style="display:none">
+                           <input type="text"  name="beneficiario-numero_cuenta" class="form-control" placeholder="Numero Cuenta">
+                         </div>
+                         <div class="form-group col-md-3" id="beneficiario-wallet" style="display:none">
+                           <input type="texto" name="beneficiario-wallet" class="form-control" placeholder="Dirección Wallet">
+                         </div>
+
+						  <input type="submit" id="save" class="btn btn-success btn-block"  value="Registrar" >
+					    </form>
+				</div>
+			</div>
+		</div>
+
+<!-- </div> -->
+{% if request.user.is_superuser %}
+	<table class="table table-bordered table-sm">
+				<thead>
+					<thead class="card-body mx-auto">
+						<h4>Operaciones</h4>
+					</thead>
+					<tr>
+						<th>Id</th>
+						<th>Datos Solicitante</th>
+                        <th>Tipo Operación</th>
+                        <th>Tipo Cripto</th>
+                        <th>Monto Principal</th>
+                        <th>Monto Cripto</th>
+                        <th>Monto Total</th>
+                        <th>Numero Referencia</th>
+                        <th>Archivo</th>
+                        <th>Tipo de Datos</th>
+                        <th>Datos Beneficiario</th>
+                        <th>Banco</th>
+                        <th>Tipo Cuenta</th>
+                        <th>NUmero Cuenta</th>
+                        <th>Wallet</th>
+						<th>Acciones</th>
+					</tr>
+				</thead>
+				<tbody id="listar">
+                    {% for oper in operaciones %}
+                    <tr>
+                        <td>{{ oper.id }}</td>
+                        <td>
+                            {{ oper.id_solicitante.nombre_sol }}<br>
+                            {{ oper.id_solicitante.tipo_documento_sol }}<br>
+                            {{ oper.id_solicitante.cedula_sol }}<br>
+                            {{ oper.id_solicitante.correo_sol }}<br>
+                        </td>
+                        <td>{{ oper.tipo_operacion }}</td>
+                        <td>{{ oper.tipo_cripto }}</td>
+                        <td>{{ oper.monto_principal }}</td>
+                        <td>{{ oper.monto_cripto }}</td>
+                        <td>{{ oper.monto_total }}</td>
+                        <td>{{ oper.num_referencia }}</td>
+                        <td>
+                            <image src="{{ oper.cargar_documento.url }}" width="100" height="80"></image>
+                        </td>
+                        <td>{{ oper.id_beneficiario.tipo_datos }}</td>
+                        <td>
+                            {{ oper.id_beneficiario.nombre_ben }}<br>
+                            {{ oper.id_beneficiario.tipo_documento_ben }}<br>
+                            {{ oper.id_beneficiario.cedula_ben }}<br>
+                            {{ oper.id_beneficiario.correo_ben }}<br>
+                        </td>
+                        <td>{{ oper.id_beneficiario.nombre_banco }}</td>
+                        <td>{{ oper.id_beneficiario.tipo_cuenta }}</td>
+                        <td>{{ oper.id_beneficiario.numero_cuenta }}</td>
+                        <td>{{ oper.id_beneficiario.wallet }}</td>
+                        <td>
+                            <a href="">Editar</a>
+                            <a href="">Eliminar</a>
+                        </td>
+                    </tr>
+                    {% endfor %}
+
+				</tbody>
+
+			</table>
+            <br>
+            <br>
+            <table class="table table-bordered table-sm">
+        				<thead>
+        					<thead class="card-body mx-auto">
+        						<h4>Compras</h4>
+        					</thead>
+        					<tr>
+        						<th>Id</th>
+        						<th>Datos Solicitante</th>
+                                <th>Tipo Operación</th>
+                                <th>Tipo Cripto</th>
+                                <th>Monto Principal</th>
+                                <th>Monto Cripto</th>
+                                <th>Monto Total</th>
+                                <th>Numero Referencia</th>
+                                <th>Archivo</th>
+                                <th>Tipo de Datos</th>
+                                <th>Datos Beneficiario</th>
+                                <th>Banco</th>
+                                <th>Tipo Cuenta</th>
+                                <th>NUmero Cuenta</th>
+                                <th>Wallet</th>
+        						<th>Acciones</th>
+        					</tr>
+        				</thead>
+        				<tbody id="listar">
+                            {% for com in compras %}
+                            <tr>
+                                <td>{{ com.id }}</td>
+                                <td>
+                                    {{ com.id_solicitante.nombre_sol }}<br>
+                                    {{ com.id_solicitante.tipo_documento_sol }}<br>
+                                    {{ com.id_solicitante.cedula_sol }}<br>
+                                    {{ com.id_solicitante.correo_sol }}<br>
+                                </td>
+                                <td>{{ com.tipo_operacion }}</td>
+                                <td>{{ com.tipo_cripto }}</td>
+                                <td>{{ com.monto_principal }}</td>
+                                <td>{{ com.monto_cripto }}</td>
+                                <td>{{ com.monto_total }}</td>
+                                <td>{{ com.num_referencia }}</td>
+                                <td>
+                                    <image src="{{ com.cargar_documento.url }}" width="100" height="80"></image>
+                                </td>
+                                <td>{{ com.id_beneficiario.tipo_datos }}</td>
+                                <td>
+                                    {{ com.id_beneficiario.nombre_ben }}<br>
+                                    {{ com.id_beneficiario.tipo_documento_ben }}<br>
+                                    {{ com.id_beneficiario.cedula_ben }}<br>
+                                    {{ com.id_beneficiario.correo_ben }}<br>
+                                </td>
+                                <td>{{ com.id_beneficiario.nombre_banco }}</td>
+                                <td>{{ com.id_beneficiario.tipo_cuenta }}</td>
+                                <td>{{ com.id_beneficiario.numero_cuenta }}</td>
+                                <td>{{ com.id_beneficiario.wallet }}</td>
+                                <td>
+                                    <a href="">Editar</a>
+                                    <a href="">Eliminar</a>
+                                </td>
+                            </tr>
+                            {% endfor %}
+
+        				</tbody>
+
+        			</table>
+                    <br>
+                    <br>
+                    <table class="table table-bordered table-sm">
+                				<thead>
+                					<thead class="card-body mx-auto">
+                						<h4>Ventas</h4>
+                					</thead>
+                					<tr>
+                						<th>Id</th>
+                						<th>Datos Solicitante</th>
+                                        <th>Tipo Operación</th>
+                                        <th>Tipo Cripto</th>
+                                        <th>Monto Principal</th>
+                                        <th>Monto Cripto</th>
+                                        <th>Monto Total</th>
+                                        <th>Numero Referencia</th>
+                                        <th>Archivo</th>
+                                        <th>Tipo de Datos</th>
+                                        <th>Datos Beneficiario</th>
+                                        <th>Banco</th>
+                                        <th>Tipo Cuenta</th>
+                                        <th>NUmero Cuenta</th>
+                                        <th>Wallet</th>
+                						<th>Acciones</th>
+                					</tr>
+                				</thead>
+                				<tbody id="listar">
+                                    {% for ven in ventas %}
+                                    <tr>
+                                        <td>{{ ven.id }}</td>
+                                        <td>
+                                            {{ ven.id_solicitante.nombre_sol }}<br>
+                                            {{ ven.id_solicitante.tipo_documento_sol }}<br>
+                                            {{ ven.id_solicitante.cedula_sol }}<br>
+                                            {{ ven.id_solicitante.correo_sol }}<br>
+                                        </td>
+                                        <td>{{ ven.tipo_operacion }}</td>
+                                        <td>{{ ven.tipo_cripto }}</td>
+                                        <td>{{ ven.monto_principal }}</td>
+                                        <td>{{ ven.monto_cripto }}</td>
+                                        <td>{{ ven.monto_total }}</td>
+                                        <td>{{ ven.num_referencia }}</td>
+                                        <td>
+                                            <image src="{{ ven.cargar_documento.url }}" width="100" height="80"></image>
+                                        </td>
+                                        <td>{{ ven.id_beneficiario.tipo_datos }}</td>
+                                        <td>
+                                            {{ ven.id_beneficiario.nombre_ben }}<br>
+                                            {{ ven.id_beneficiario.tipo_documento_ben }}<br>
+                                            {{ ven.id_beneficiario.cedula_ben }}<br>
+                                            {{ ven.id_beneficiario.correo_ben }}<br>
+                                        </td>
+                                        <td>{{ ven.id_beneficiario.nombre_banco }}</td>
+                                        <td>{{ ven.id_beneficiario.tipo_cuenta }}</td>
+                                        <td>{{ ven.id_beneficiario.numero_cuenta }}</td>
+                                        <td>{{ ven.id_beneficiario.wallet }}</td>
+                                        <td>
+                                            <a href="">Editar</a>
+                                            <a href="">Eliminar</a>
+                                        </td>
+                                    </tr>
+                                    {% endfor %}
+
+                				</tbody>
+
+                			</table>
+
+
+{% endif %}
+
+
+
+{% endblock body %}
+
+<div class="modal fade" id="creacion" role="dialog">
+
+</div>
+
+<div class="modal fade" id="edicion" role="dialog">
+
+</div>
+
+<div class="modal fade" id="eliminacion" role="dialog">
+
+</div>
+
+
+
+
+    <!-- Copyright -->
+    <div class="copyright">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-12 text-center" >
+                    <p class="p-small" class="text-center">Copyright © MDM SYSTEM'S - Creadores de APPS, PAGINAS Y APLICACIONES WEB <a href="http://www.inovatik.com">JAWENOOOO!!!</a></p>
+                </div> <!-- end of col -->
+            </div> <!-- enf of row -->
+        </div> <!-- end of container -->
+    </div> <!-- end of copyright -->
+    <!-- end of copyright -->
+
+
+    <!-- Scripts -->
+    <script src="{% static 'js/jquery.min.js' %}"></script> <!-- jQuery for Bootstrap's JavaScript plugins -->
+    <script src="{% static 'js/popper.min.js' %}"></script> <!-- Popper tooltip library for Bootstrap -->
+    <script src="{% static 'js/bootstrap.min.js' %}"></script> <!-- Bootstrap framework -->
+    <script src="{% static 'js/jquery.easing.min.js' %}"></script> <!-- jQuery Easing for smooth scrolling between anchors -->
+    <script src="{% static 'js/swiper.min.js' %}"></script> <!-- Swiper for image and text sliders -->
+    <script src="{% static 'js/jquery.magnific-popup.js' %}"></script> <!-- Magnific Popup for lightboxes -->
+    <script src="{% static 'js/morphext.min.js' %}"></script> <!-- Morphtext rotating text in the header -->
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@9"></script>
+    <!-- <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script> -->
+    <script src="{% static 'js/validator.min.js' %}"></script> <!-- Validator.js - Bootstrap plugin that validates forms -->
+    <script src="{% static 'js/scripts.js' %}"></script>
+    <script src="{% static 'js/jquery.countdown.min.js' %}"></script>
+    <script src="{% static 'js/jquery.countdown.js' %}"></script> <!-- Custom scripts -->
+
+</body>
+
+{% block extrajs %}
+<script src="{% static 'js/main2.js' %}"></script>
+<!-- <script src="{% static 'js/operacion/index.js' %}"></script> -->
+<script>
+    {% if messages %}
+        var html_mensaje = ''
+        {% for mensaje in messages %}
+            html_mensaje += '{{ mensaje }}';
+        {% endfor %}
+        notificacionError(html_mensaje);
+    {% endif %}
+</script>
+{% endblock extrajs %}
+</html>
